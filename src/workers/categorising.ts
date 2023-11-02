@@ -1,0 +1,115 @@
+import { genericCategories } from "../data/genericCategories";
+import { specificCategories } from "../data/specificCategories";
+import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
+import { countByCategory } from "../lib/transactions/countByCategory";
+import {
+  containsFullWord,
+  containsWordPartial,
+} from "../lib/utilities/containsWord";
+import { CategorisedTransaction, ParsedTransaction } from "../types/types";
+
+const clashResolvers: Record<string, string> = {
+  Rent: "Housing",
+  "Coles Express": "Transport",
+  CWH: "Health",
+  CW: "Health",
+  FOODMARKET: "Groceries",
+  WHS: "Education",
+  // Bonds: "Shopping",
+  // Coles: "Groceries",
+};
+
+export const resolveKnownClashes = (
+  description: string,
+): string | undefined => {
+  for (const clash in clashResolvers) {
+    if (description.includes(clash)) {
+      return clashResolvers[clash];
+    }
+  }
+  return undefined;
+};
+
+const categoriseTransaction = (
+  description: string,
+  categories: Record<string, string[]>,
+  checkFn: (phrase: string, target: string) => boolean,
+): string | undefined => {
+  for (const category in categories) {
+    for (const keyword of categories[category]) {
+      if (checkFn(description, keyword)) {
+        return category;
+      }
+    }
+  }
+  return undefined;
+};
+
+export const keywordCategorise = (
+  transactions: ParsedTransaction[],
+): CategorisedTransaction[] => {
+  return transactions.map((transaction, index, array) => {
+    let categorisedTransaction: CategorisedTransaction = { ...transaction };
+
+    const knownClashCategory = resolveKnownClashes(transaction.description);
+    if (knownClashCategory) {
+      categorisedTransaction.category = knownClashCategory;
+      return categorisedTransaction;
+    }
+
+    categorisedTransaction.category =
+      categoriseTransaction(
+        transaction.description,
+        specificCategories,
+        containsFullWord,
+      ) ||
+      categoriseTransaction(
+        transaction.description,
+        genericCategories,
+        containsFullWord,
+      ) ||
+      categoriseTransaction(
+        transaction.description,
+        specificCategories,
+        containsWordPartial,
+      ) ||
+      categoriseTransaction(
+        transaction.description,
+        genericCategories,
+        containsWordPartial,
+      ) ||
+      "Unknown";
+
+    postMessage({
+      progress: (index / transactions.length) * 100,
+    });
+    return categorisedTransaction;
+  });
+};
+
+export const aiCategorise = async (transactions: ParsedTransaction[]) => {
+  // fetch from separate node api endpoint
+};
+
+onmessage = function (messageEvent) {
+  const { transactions, categoriserType } = messageEvent.data;
+  console.log(transactions);
+
+  let result: CategorisedTransaction[] = [];
+
+  if (categoriserType === "keyword") {
+    result = keywordCategorise(transactions);
+  } else if (categoriserType === "ai") {
+    // result = aiCategorise(transactions);
+  }
+
+  const categoriesByMonth = aggregateByMonth(result);
+  const categoryCount = countByCategory(result);
+
+  postMessage({
+    transactions: result,
+    categoriesByMonth,
+    categoryCount,
+    progress: 100,
+  });
+};
