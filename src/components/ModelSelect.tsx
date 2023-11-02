@@ -14,6 +14,7 @@ export const ModelSelect: React.FC<Props> = ({ onChange }) => {
   return (
     <div className="w-full max-w-3xl text-gray-600">
       <Select
+        instanceId="model-select"
         options={options}
         isSearchable={false}
         onChange={(selectedOption) =>
