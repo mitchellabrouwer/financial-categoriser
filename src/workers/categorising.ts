@@ -1,3 +1,4 @@
+import { fetchCategoriesFromModel } from "../api/fetchCategoriesFromModel";
 import { genericCategories } from "../data/genericCategories";
 import { specificCategories } from "../data/specificCategories";
 import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
@@ -87,11 +88,7 @@ export const keywordCategorise = (
   });
 };
 
-export const aiCategorise = async (transactions: ParsedTransaction[]) => {
-  // fetch from separate node api endpoint
-};
-
-onmessage = function (messageEvent) {
+onmessage = async function (messageEvent) {
   const { transactions, categoriserType } = messageEvent.data;
   console.log(transactions);
 
@@ -100,7 +97,8 @@ onmessage = function (messageEvent) {
   if (categoriserType === "keyword") {
     result = keywordCategorise(transactions);
   } else if (categoriserType === "ai") {
-    // result = aiCategorise(transactions);
+    result = await fetchCategoriesFromModel(transactions);
+    console.log(result);
   }
 
   const categoriesByMonth = aggregateByMonth(result);
