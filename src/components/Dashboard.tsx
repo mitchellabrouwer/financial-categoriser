@@ -78,7 +78,6 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <Loader isLoading={true} />
       <div className="flex w-full items-center justify-center">
         <ToastContainer theme="dark" />
 
