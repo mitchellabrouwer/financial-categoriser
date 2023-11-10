@@ -10,6 +10,7 @@ import SmallScreenCharts from "./ChartsSmallScreen";
 import Features from "./Features";
 import { FileDrop } from "./FileDrop";
 import Footer from "./Footer";
+import { Loader } from "./Loader";
 import { ModelSelect } from "./ModelSelect";
 import { Navbar } from "./Navbar";
 import { ProgressLoader } from "./ProgressLoader";
@@ -20,7 +21,7 @@ export const Dashboard: React.FC = () => {
     isLoading,
     setIsLoading,
     progressLoader,
-    // categoriserType,
+    categoriserType,
     setCategoriserType,
     transactions,
     setTransactions,
@@ -31,7 +32,6 @@ export const Dashboard: React.FC = () => {
     categoryCount,
     setCategoriesByMonth,
     setCategoryCount,
-    model,
   } = useTransactionProcessing();
   const [activeView, setActiveView] = useState<ActiveView>("import");
 
@@ -69,8 +69,16 @@ export const Dashboard: React.FC = () => {
     }
   }, [setActiveView, setIsLoading, progressLoader]);
 
+  const loader =
+    categoriserType === "keyword" ? (
+      <ProgressLoader progressLoader={progressLoader} />
+    ) : (
+      <Loader isLoading={isLoading} />
+    );
+
   return (
     <div>
+      <Loader isLoading={true} />
       <div className="flex w-full items-center justify-center">
         <ToastContainer theme="dark" />
 
@@ -81,7 +89,7 @@ export const Dashboard: React.FC = () => {
         />
         <div className="m-auto w-full">
           {isLoading ? (
-            <ProgressLoader progressLoader={progressLoader} />
+            loader
           ) : (
             <div className="w-full">
               {activeView === "import" && (
