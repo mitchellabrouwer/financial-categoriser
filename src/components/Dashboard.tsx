@@ -11,7 +11,6 @@ import Features from "./Features";
 import { FileDrop } from "./FileDrop";
 import Footer from "./Footer";
 import { Loader } from "./Loader";
-import { ModelSelect } from "./ModelSelect";
 import { Navbar } from "./Navbar";
 import { ProgressLoader } from "./ProgressLoader";
 import { SampleDataButton } from "./SampleDataButton";
@@ -96,9 +95,9 @@ export const Dashboard: React.FC = () => {
                   <h2 className="text-base font-semibold leading-7 text-gray-200 md:text-center">
                     Select categorisation and upload CSV
                   </h2>
-                  <div className="flex w-full justify-center">
+                  {/* <div className="flex w-full justify-center">
                     <ModelSelect onChange={handleModelChange} />
-                  </div>
+                  </div> */}
                   <FileDrop handleFileChange={handleFileChange} />
                   <div className="flex w-full justify-center">
                     <Features />
