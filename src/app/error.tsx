@@ -1,4 +1,4 @@
-"use client"; // Error components must be Client Components
+"use client";
 
 import { useEffect } from "react";
 
@@ -10,21 +10,29 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
   return (
-    <div>
-      <h2>Something went wrong!</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
+    <div className="flex h-screen items-center justify-center bg-black">
+      <div className="text-center">
+        <h1 className="mb-2 text-4xl font-bold text-white">
+          Sorry, thats awkward somthing went wrong!
+        </h1>
+        {/* <p className="my-4 text-white">{error.message}</p> */}
+        <button
+          onClick={() => reset()}
+          className="mx-2 inline-block w-32 rounded border border-white px-4 py-2 align-middle font-semibold text-white hover:bg-gray-800"
+        >
+          Try Again
+        </button>
+        <a
+          href="/"
+          className="inline-block w-32 rounded border border-white px-4 py-2 align-middle font-semibold text-white hover:bg-gray-800"
+        >
+          Home
+        </a>
+      </div>
     </div>
   );
 }

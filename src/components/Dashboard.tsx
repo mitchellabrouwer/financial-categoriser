@@ -79,7 +79,6 @@ export const Dashboard: React.FC = () => {
     <div>
       <div className="flex w-full items-center justify-center">
         <ToastContainer theme="dark" />
-
         <Navbar
           activeView={activeView}
           setActiveView={setActiveView}
