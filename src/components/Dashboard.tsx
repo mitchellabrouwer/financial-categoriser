@@ -92,9 +92,9 @@ export const Dashboard: React.FC = () => {
             <div className="w-full">
               {activeView === "import" && (
                 <>
-                  <h2 className="text-base font-semibold leading-7 text-gray-200 md:text-center">
+                  {/* <h2 className="text-base font-semibold leading-7 text-gray-200 md:text-center">
                     Select categorisation and upload CSV
-                  </h2>
+                  </h2> */}
                   {/* <div className="flex w-full justify-center">
                     <ModelSelect onChange={handleModelChange} />
                   </div> */}
