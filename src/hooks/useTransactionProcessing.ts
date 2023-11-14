@@ -13,7 +13,9 @@ import {
 export function useTransactionProcessing() {
   const workerRef = useRef<Worker>();
   const [progressLoader, setProgressLoader] = useState(0);
-  const [categoriserType, setCategoriserType] = useState<"keyword" | "ai">();
+  const [categoriserType, setCategoriserType] = useState<"keyword" | "ai">(
+    "keyword",
+  );
   const [transactions, setTransactions] = useState<CategorisedTransaction[]>(
     [],
   );
