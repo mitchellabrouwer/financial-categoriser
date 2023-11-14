@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -5,8 +6,6 @@ import { useTransactionProcessing } from "../hooks/useTransactionProcessing";
 import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
 import { countByCategory } from "../lib/transactions/countByCategory";
 import { ActiveView, SelectCategoriserTypeOption } from "../types/types";
-import LargeScreenCharts from "./ChartsLargeScreen";
-import SmallScreenCharts from "./ChartsSmallScreen";
 import Features from "./Features";
 import { FileDrop } from "./FileDrop";
 import Footer from "./Footer";
@@ -14,6 +13,13 @@ import { Loader } from "./Loader";
 import { Navbar } from "./Navbar";
 import { ProgressLoader } from "./ProgressLoader";
 import { SampleDataButton } from "./SampleDataButton";
+
+const ChartsSmallScreenDynamic = dynamic(() => import("./ChartsSmallScreen"), {
+  ssr: false,
+});
+const ChartsLaregeScreenDynamic = dynamic(() => import("./ChartsLargeScreen"), {
+  ssr: false,
+});
 
 export const Dashboard: React.FC = () => {
   const {
@@ -33,6 +39,8 @@ export const Dashboard: React.FC = () => {
     setCategoryCount,
   } = useTransactionProcessing();
   const [activeView, setActiveView] = useState<ActiveView>("import");
+
+  console.log(transactions);
 
   const isInitialRender = useRef(true);
 
@@ -113,7 +121,7 @@ export const Dashboard: React.FC = () => {
 
               {activeView === "charts" && transactions.length > 0 && (
                 <>
-                  <SmallScreenCharts
+                  <ChartsSmallScreenDynamic
                     transactions={transactions}
                     categoriesByMonth={categoriesByMonth || {}}
                     categoryCount={categoryCount || {}}
@@ -121,7 +129,7 @@ export const Dashboard: React.FC = () => {
                     setTransactions={setTransactions}
                   />
 
-                  <LargeScreenCharts
+                  <ChartsLaregeScreenDynamic
                     transactions={transactions}
                     categoriesByMonth={categoriesByMonth || {}}
                     categoryCount={categoryCount || {}}
