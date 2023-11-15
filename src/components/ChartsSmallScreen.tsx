@@ -10,7 +10,7 @@ import PieChart from "./PieChart";
 import SummaryTable from "./SummaryTable";
 import TransactionTable from "./TransactionTable";
 
-interface Props {
+interface ChartsSmallScreenProps {
   transactions: CategorisedTransaction[];
   categoriesByMonth: MonthlyCategoryTotals;
   categoryCount: CategoryCounts;
@@ -20,13 +20,13 @@ interface Props {
   >;
 }
 
-const ChartsSmallScreen: React.FC<Props> = ({
+function ChartsSmallScreen({
   transactions,
   categoriesByMonth,
   categoryCount,
   allTransactions,
   setTransactions,
-}) => {
+}: ChartsSmallScreenProps) {
   const [tableView, setTableView] = useState<"transaction" | "summary">(
     "transaction",
   );
@@ -82,6 +82,6 @@ const ChartsSmallScreen: React.FC<Props> = ({
       </div>
     </div>
   );
-};
+}
 
 export default ChartsSmallScreen;

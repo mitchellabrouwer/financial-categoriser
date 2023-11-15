@@ -1,22 +1,17 @@
 import { categoryDefinitions } from "../data/categoryList";
 import Modal from "./Modal";
 
-interface CategoryDefinition {
-  name: string;
-  items: string[];
-}
-
 interface CategoryListModalProps {
   isShowing: boolean;
   toggle: () => void;
   unknowns: number;
 }
 
-export const CategoryListModal: React.FC<CategoryListModalProps> = ({
+function CategoryListModal({
   isShowing,
   toggle,
   unknowns,
-}) => {
+}: CategoryListModalProps) {
   return (
     <Modal isShowing={isShowing} toggle={toggle} title="Categorising">
       <div className="mb-4 text-xs normal-case">
@@ -41,4 +36,6 @@ export const CategoryListModal: React.FC<CategoryListModalProps> = ({
       </div>
     </Modal>
   );
-};
+}
+
+export default CategoryListModal;

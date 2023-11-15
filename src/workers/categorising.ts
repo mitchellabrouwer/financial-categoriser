@@ -1,4 +1,4 @@
-import { fetchCategoriesFromModel } from "../api/fetchCategoriesFromModel";
+import fetchCategoriesFromModel from "../api/fetchCategoriesFromModel";
 import { genericCategories } from "../data/genericCategories";
 import { specificCategories } from "../data/specificCategories";
 import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
@@ -50,7 +50,7 @@ export const keywordCategorise = (
   transactions: ParsedTransaction[],
 ): CategorisedTransaction[] => {
   return transactions.map((transaction, index, array) => {
-    let categorisedTransaction: CategorisedTransaction = { ...transaction };
+    const categorisedTransaction: CategorisedTransaction = { ...transaction };
 
     const knownClashCategory = resolveKnownClashes(transaction.description);
     if (knownClashCategory) {
@@ -90,7 +90,6 @@ export const keywordCategorise = (
 
 onmessage = async function (messageEvent) {
   const { transactions, categoriserType } = messageEvent.data;
-  console.log(transactions);
 
   let result: CategorisedTransaction[] = [];
 
@@ -98,7 +97,6 @@ onmessage = async function (messageEvent) {
     result = keywordCategorise(transactions);
   } else if (categoriserType === "ai") {
     result = await fetchCategoriesFromModel(transactions);
-    console.log(result);
   }
 
   const categoriesByMonth = aggregateByMonth(result);

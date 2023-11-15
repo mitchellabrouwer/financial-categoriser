@@ -21,6 +21,7 @@ export default function Error({
         </h1>
         {/* <p className="my-4 text-white">{error.message}</p> */}
         <button
+          type="button"
           onClick={() => reset()}
           className="mx-2 inline-block w-32 rounded border border-white px-4 py-2 align-middle font-semibold text-white hover:bg-gray-800"
         >

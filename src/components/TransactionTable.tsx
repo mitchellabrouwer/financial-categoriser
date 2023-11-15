@@ -11,7 +11,7 @@ import {
 import useScrollbarSize from "react-scrollbar-size";
 import Select, { MultiValue, SingleValue } from "react-select";
 import { toast } from "react-toastify";
-import { AutoSizer, List } from "react-virtualized";
+import { AutoSizer, List, ListRowProps } from "react-virtualized";
 import { colours } from "../../styles/colours";
 import { categoryList } from "../data/categoryList";
 import useModal from "../hooks/useModal";
@@ -21,7 +21,7 @@ import {
   toTwClass,
 } from "../lib/utilities/general";
 import { CategorisedTransaction, Filters } from "../types/types";
-import { CategoryListModal } from "./CategoryListModal";
+import CategoryListModal from "./CategoryListModal";
 import MultiSelect, { ColourOption } from "./MultiSelect";
 import { Search } from "./Search";
 import TransactionRow from "./TransactionRow";
@@ -105,7 +105,7 @@ export default function TransactionTable({
     [allTransactions],
   );
 
-  const { height, width } = useScrollbarSize();
+  const { width: widthScrollBar } = useScrollbarSize();
 
   useEffect(() => {
     const count = countUnknown(transactions);
@@ -195,6 +195,23 @@ export default function TransactionTable({
     [],
   );
 
+  const rowRenderer = useCallback(
+    ({ index, key, style }: ListRowProps) => {
+      const transaction = sortedTransactions[index];
+      return (
+        <TransactionRow
+          key={key}
+          index={index}
+          style={style}
+          transaction={transaction}
+          categoryOptions={categoryOptions}
+          handleChangeCategory={handleChangeCategory}
+        />
+      );
+    },
+    [sortedTransactions, categoryOptions, handleChangeCategory],
+  );
+
   return (
     <div className="relative mx-2 my-2 flex h-full flex-col shadow-md sm:rounded-lg">
       {/* Flexbox used over <table> due to responsivity issues when using react-virtualized */}
@@ -210,8 +227,15 @@ export default function TransactionTable({
         <div className="w-[140px] flex-shrink-0 text-center md:w-[180px]">
           Category
           <span
-            className="ml-2 mr-2 rounded-full border border-red-800 bg-red-100 px-4 py-1 text-xs font-medium text-red-800 hover:cursor-pointer hover:border-red-900 hover:bg-red-200 dark:border-red-300 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800"
+            role="button"
+            tabIndex={0}
             onClick={toggle}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                toggle();
+              }
+            }}
+            className="ml-2 mr-2 rounded-full border border-red-800 bg-red-100 px-4 py-1 text-xs font-medium text-red-800 hover:cursor-pointer hover:border-red-900 hover:bg-red-200 dark:border-red-300 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800"
           >
             {unknowns}
           </span>
@@ -247,7 +271,7 @@ export default function TransactionTable({
         </div>
         <div
           className="w-[140px] flex-shrink-0 md:w-[180px]"
-          style={{ marginRight: width }}
+          style={{ marginRight: widthScrollBar }}
         >
           <MultiSelect
             options={colourOptions}
@@ -263,19 +287,7 @@ export default function TransactionTable({
             height={height}
             rowCount={sortedTransactions.length}
             rowHeight={37}
-            rowRenderer={({ index, key, style }) => {
-              const transaction = sortedTransactions[index];
-              return (
-                <TransactionRow
-                  key={key}
-                  index={index}
-                  style={style}
-                  transaction={transaction}
-                  categoryOptions={categoryOptions}
-                  handleChangeCategory={handleChangeCategory}
-                />
-              );
-            }}
+            rowRenderer={rowRenderer}
           />
         )}
       </AutoSizer>

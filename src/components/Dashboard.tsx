@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useTransactionProcessing } from "../hooks/useTransactionProcessing";
 import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
 import { countByCategory } from "../lib/transactions/countByCategory";
-import { ActiveView, SelectCategoriserTypeOption } from "../types/types";
+import { ActiveView } from "../types/types";
 import Features from "./Features";
 import { FileDrop } from "./FileDrop";
 import Footer from "./Footer";
@@ -21,13 +21,13 @@ const ChartsLaregeScreenDynamic = dynamic(() => import("./ChartsLargeScreen"), {
   ssr: false,
 });
 
-export const Dashboard: React.FC = () => {
+function Dashboard() {
   const {
     isLoading,
     setIsLoading,
     progressLoader,
     categoriserType,
-    setCategoriserType,
+    // setCategoriserType,
     transactions,
     setTransactions,
     allTransactions,
@@ -40,8 +40,6 @@ export const Dashboard: React.FC = () => {
   } = useTransactionProcessing();
   const [activeView, setActiveView] = useState<ActiveView>("import");
 
-  console.log(transactions);
-
   const isInitialRender = useRef(true);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,13 +49,13 @@ export const Dashboard: React.FC = () => {
     }
   };
 
-  const handleModelChange = (
-    selectedOption: SelectCategoriserTypeOption | null,
-  ) => {
-    if (selectedOption?.value) {
-      setCategoriserType(selectedOption.value);
-    }
-  };
+  // const handleModelChange = (
+  //   selectedOption: SelectCategoriserTypeOption | null,
+  // ) => {
+  //   if (selectedOption?.value) {
+  //     setCategoriserType(selectedOption.value);
+  //   }
+  // };
 
   useEffect(() => {
     if (isInitialRender.current) {
@@ -145,6 +143,6 @@ export const Dashboard: React.FC = () => {
       <Footer />
     </div>
   );
-};
+}
 
 export default Dashboard;

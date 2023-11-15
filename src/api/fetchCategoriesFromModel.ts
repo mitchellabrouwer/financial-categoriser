@@ -1,11 +1,6 @@
 import { ParsedTransaction } from "../types/types";
 
-export async function fetchCategoriesFromModel(data: ParsedTransaction[]) {
-  // const withoutDate = data.map(({ date, ...rest }) => rest);
-
-  // let body = JSON.stringify(data);
-  // let sizeInBytes = Buffer.byteLength(body);
-
+async function fetchCategoriesFromModel(data: ParsedTransaction[]) {
   if (process.env.NEXT_PUBLIC_MODEL_ENDPOINT) {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_MODEL_ENDPOINT, {
@@ -24,9 +19,8 @@ export async function fetchCategoriesFromModel(data: ParsedTransaction[]) {
 
       if (categories.categoryPredictions) {
         return categories.categoryPredictions;
-      } else {
-        throw new Error("no data received from server");
       }
+      throw new Error("no data received from server");
     } catch (error) {
       console.error(
         "There has been a problem with your fetch operation:",
@@ -37,3 +31,5 @@ export async function fetchCategoriesFromModel(data: ParsedTransaction[]) {
     throw new Error("must provide model endpoint");
   }
 }
+
+export default fetchCategoriesFromModel;
