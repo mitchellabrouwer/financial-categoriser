@@ -1,5 +1,3 @@
-import { FC } from "react";
-
 const sizes = {
   sm: "4",
   md: "8",
@@ -11,7 +9,7 @@ interface SpinnerProps {
   size: keyof typeof sizes;
 }
 
-export const Spinner: FC<SpinnerProps> = ({ size }) => {
+function Spinner({ size }: SpinnerProps) {
   const dimension = sizes[size];
   return (
     <div role="status">
@@ -34,4 +32,6 @@ export const Spinner: FC<SpinnerProps> = ({ size }) => {
       <span className="sr-only">Loading...</span>
     </div>
   );
-};
+}
+
+export default Spinner;

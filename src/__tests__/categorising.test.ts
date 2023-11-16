@@ -61,9 +61,9 @@ describe("Phrase categorization", () => {
     const transaction = [{ id: uuidv4(), date, description: phrase, amount }];
 
     expect(keywordCategorise(transaction)[0]).toMatchObject({
-      amount: amount,
-      category: category,
-      date: date,
+      amount,
+      category,
+      date,
       description: phrase,
     });
   });

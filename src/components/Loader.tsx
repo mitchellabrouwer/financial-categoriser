@@ -1,10 +1,8 @@
-import { FC } from "react";
-
 interface LoaderProps {
   isLoading: boolean;
 }
 
-export const Loader: FC<LoaderProps> = ({ isLoading }) => {
+function Loader({ isLoading }: LoaderProps) {
   return (
     <div className="relative mt-10 h-6 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
       {isLoading ? (
@@ -14,4 +12,6 @@ export const Loader: FC<LoaderProps> = ({ isLoading }) => {
       ) : null}
     </div>
   );
-};
+}
+
+export default Loader;

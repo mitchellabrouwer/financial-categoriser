@@ -26,7 +26,7 @@ function getRandomIndex(length: number): number {
   return Math.floor(Math.random() * length);
 }
 
-export const generateSampleTransactions = (
+const generateSampleTransactions = (
   numberOfTransactions: number,
 ): CategorisedTransaction[] => {
   const categories: Record<CategoryKeys, string[]> = {
@@ -58,9 +58,9 @@ export const generateSampleTransactions = (
     Deposits: ["Paycheck", "Salary"],
   };
 
-  let transactions: CategorisedTransaction[] = [];
+  const transactions: CategorisedTransaction[] = [];
 
-  for (let i = 0; i < numberOfTransactions; i++) {
+  for (let i = 0; i < numberOfTransactions; i += 1) {
     const categoryKeys = Object.keys(categories);
     const randomCategory = categoryKeys[
       getRandomIndex(categoryKeys.length)
@@ -88,7 +88,7 @@ export const generateSampleTransactions = (
     transactions.push({
       id: uuidv4(),
       date: randomDate,
-      description: description,
+      description,
       amount,
       category: randomCategory,
     });
@@ -96,3 +96,5 @@ export const generateSampleTransactions = (
 
   return transactions;
 };
+
+export default generateSampleTransactions;

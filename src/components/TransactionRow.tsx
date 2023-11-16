@@ -1,21 +1,21 @@
 import React from "react";
-import Select, { StylesConfig } from "react-select";
+import Select, { SingleValue, StylesConfig } from "react-select";
 import { formatCurrency, toTwClass } from "../lib/utilities/general";
-import { CategorisedTransaction } from "../types/types";
+import { CategorisedTransaction, Option } from "../types/types";
 
 interface TransactionRowProps {
   transaction: CategorisedTransaction;
   index: number;
-  categoryOptions: { label: string; value: string }[];
+  categoryOptions: Option[];
   handleChangeCategory: (
     index: number,
-    newCategory: any,
+    newCategory: SingleValue<Option>,
     description: string,
   ) => void;
   style: React.CSSProperties;
 }
 
-const customSelectStyles: StylesConfig = {
+const customSelectStyles: StylesConfig<Option, false> = {
   option: (styles, { isFocused, isSelected }) => ({
     ...styles,
     color: isSelected ? "white" : isFocused ? "black" : "gray",
@@ -55,30 +55,32 @@ const TransactionRow: React.FC<TransactionRowProps> = React.memo(
         <div className="w-[100px] flex-shrink-0 md:w-[150px]">
           {formatCurrency(transaction.amount)}
         </div>
-        <div className={`w-[140px] flex-shrink-0 md:w-[180px]`}>
+        <div className="w-[140px] flex-shrink-0 md:w-[180px]">
           <div
             className={`rounded-md p-[0.9px] shadow-md ${toTwClass(
               transaction.category,
               "bg-",
             )}`}
           >
-            <Select
+            <Select<Option>
               // menuPosition="fixed"
               // menuPlacement="bottom"
               styles={customSelectStyles}
               menuPortalTarget={document.body}
               options={categoryOptions.sort()}
-              value={{
-                value: transaction.category,
-                label: transaction.category,
-              }}
-              onChange={(newCategory) =>
+              value={
+                {
+                  value: transaction.category,
+                  label: transaction.category,
+                } as Option
+              }
+              onChange={(newCategory) => {
                 handleChangeCategory(
                   index,
                   newCategory,
                   transaction.description,
-                )
-              }
+                );
+              }}
             />
           </div>
         </div>

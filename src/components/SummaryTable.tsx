@@ -10,15 +10,15 @@ export default function SummaryTable({
   counts: CategoryCounts;
 }) {
   const months = Number(Object.keys(categoryByMonth).length - 1);
-  let totalByCategory: { [key: string]: number } = {};
+  const totalByCategory: { [key: string]: number } = {};
   let totalSpend = 0;
 
-  for (const [_, categories] of Object.entries(categoryByMonth)) {
-    for (const [category, amount] of Object.entries(categories)) {
+  Object.entries(categoryByMonth).forEach(([, categories]) => {
+    Object.entries(categories).forEach(([category, amount]) => {
       totalByCategory[category] = (totalByCategory[category] || 0) + amount;
       totalSpend += amount;
-    }
-  }
+    });
+  });
 
   const sortedCategories = Object.keys(totalByCategory).sort(
     (a, b) => totalByCategory[b] / totalSpend - totalByCategory[a] / totalSpend,
@@ -70,7 +70,7 @@ export default function SummaryTable({
         <tbody className="divide-y divide-gray-200 bg-white">
           {sortedCategories.map((category, index) => (
             <tr
-              key={index}
+              key={category}
               className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
             >
               <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">

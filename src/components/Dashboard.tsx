@@ -2,17 +2,17 @@ import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTransactionProcessing } from "../hooks/useTransactionProcessing";
-import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
-import { countByCategory } from "../lib/transactions/countByCategory";
+import useTransactionProcessing from "../hooks/useTransactionProcessing";
+import aggregateByMonth from "../lib/transactions/aggregateByMonth";
+import countByCategory from "../lib/transactions/countByCategory";
 import { ActiveView } from "../types/types";
 import Features from "./Features";
 import FileDrop from "./FileDrop";
 import Footer from "./Footer";
-import { Loader } from "./Loader";
-import { Navbar } from "./Navbar";
-import { ProgressLoader } from "./ProgressLoader";
-import { SampleDataButton } from "./SampleDataButton";
+import Loader from "./Loader";
+import Navbar from "./Navbar";
+import ProgressLoader from "./ProgressLoader";
+import SampleDataButton from "./SampleDataButton";
 
 const ChartsSmallScreenDynamic = dynamic(() => import("./ChartsSmallScreen"), {
   ssr: false,

@@ -9,12 +9,13 @@ import {
 } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import { isMobile } from "react-device-detect";
-import { chartjsParsePie } from "../lib/chartjs/pieTransform";
-import { aggregateByCategory } from "../lib/transactions/aggregateByCategory";
+import chartjsParsePie from "../lib/chartjs/pieTransform";
+import aggregateByCategory from "../lib/transactions/aggregateByCategory";
 import { CategorisedTransaction } from "../types/types";
+
 ChartJS.register(ArcElement, Tooltip, Legend, Colors);
 
-export default function PieChart({
+function PieChart({
   transactions,
 }: {
   transactions: CategorisedTransaction[];
@@ -53,3 +54,5 @@ export default function PieChart({
     </div>
   );
 }
+
+export default PieChart;

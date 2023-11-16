@@ -22,10 +22,10 @@ async function fetchCategoriesFromModel(data: ParsedTransaction[]) {
       }
       throw new Error("no data received from server");
     } catch (error) {
-      console.error(
-        "There has been a problem with your fetch operation:",
-        error,
-      );
+      // console.error(
+      //   "There has been a problem with your fetch operation:",
+      //   error,
+      // );
     }
   } else {
     throw new Error("must provide model endpoint");

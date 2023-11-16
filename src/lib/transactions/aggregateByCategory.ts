@@ -1,8 +1,12 @@
-import { AggregateTransactions, CategorisedTransaction, Tally } from "../../types/types";
+import {
+  AggregateTransactions,
+  CategorisedTransaction,
+  Tally,
+} from "../../types/types";
 
-export const aggregateByCategory = (
-  transactions: CategorisedTransaction[]
-): AggregateTransactions => {
+function aggregateByCategory(
+  transactions: CategorisedTransaction[],
+): AggregateTransactions {
   let total = { count: 0, sum: 0 };
   const data = transactions.reduce<Tally>((accumulator, transaction) => {
     if (transaction.category) {
@@ -12,7 +16,9 @@ export const aggregateByCategory = (
       // by transaction category
       accumulator[transaction.category] = {
         count: currentCount ? currentCount + 1 : 1,
-        sum: currenctSum ? currenctSum + transaction.amount : transaction.amount,
+        sum: currenctSum
+          ? currenctSum + transaction.amount
+          : transaction.amount,
       };
 
       // total for all transactions
@@ -27,4 +33,6 @@ export const aggregateByCategory = (
     total,
     data,
   };
-};
+}
+
+export default aggregateByCategory;

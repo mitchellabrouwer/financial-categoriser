@@ -1,5 +1,5 @@
-import { genericCategories } from "./genericCategories";
-import { specificCategories } from "./specificCategories";
+import genericCategories from "./genericCategories";
+import specificCategories from "./specificCategories";
 
 export const categoryList = [
   ...new Set([

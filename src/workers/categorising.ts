@@ -94,7 +94,7 @@ export const keywordCategorise = (
   });
 };
 
-onmessage = async function (messageEvent) {
+onmessage = async function handleOnMessage(messageEvent) {
   const { transactions, categoriserType } = messageEvent.data;
 
   let result: CategorisedTransaction[] = [];

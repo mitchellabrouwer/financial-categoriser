@@ -1,4 +1,3 @@
-import React from "react";
 import Modal from "./Modal";
 
 interface PrivacyPolicyModalProps {
@@ -6,10 +5,7 @@ interface PrivacyPolicyModalProps {
   toggle: () => void;
 }
 
-export const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({
-  isShowing,
-  toggle,
-}) => {
+function PrivacyPolicyModal({ isShowing, toggle }: PrivacyPolicyModalProps) {
   return (
     <Modal isShowing={isShowing} toggle={toggle} title="Privacy Policy">
       <div className="max-h-[65vh] overflow-y-auto p-2 text-left">
@@ -77,4 +73,6 @@ export const PrivacyPolicyModal: React.FC<PrivacyPolicyModalProps> = ({
       </div>
     </Modal>
   );
-};
+}
+
+export default PrivacyPolicyModal;

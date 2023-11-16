@@ -1,4 +1,4 @@
-export const genericCategories: { [category: string]: string[] } = {
+const genericCategories: { [category: string]: string[] } = {
   Groceries: [
     "liquor",
     "GROCER",
@@ -482,3 +482,5 @@ export const genericCategories: { [category: string]: string[] } = {
     "electrician",
   ],
 };
+
+export default genericCategories;

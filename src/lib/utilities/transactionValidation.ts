@@ -1,7 +1,9 @@
 import { ParsedTransaction } from "../../types/types";
 import { ignorePropCase } from "./general";
 
-export const isExternalUnlessSaving = (transaction: ParsedTransaction): boolean => {
+export const isExternalUnlessSaving = (
+  transaction: ParsedTransaction,
+): boolean => {
   if (transaction.description.toLowerCase().includes("internal transfer")) {
     if (transaction.description.toLowerCase().includes("savings")) {
       return true;
@@ -14,17 +16,20 @@ export const isExternalUnlessSaving = (transaction: ParsedTransaction): boolean 
 export const isValidTransaction = (transaction: ParsedTransaction): boolean => {
   const requiredFields = ["date", "description", "amount"];
 
-  for (const field of requiredFields) {
+  const isValid = requiredFields.every((field) => {
     const value = ignorePropCase(transaction, field);
-    if (
-      typeof value === "undefined" ||
-      (typeof value === "string" && value.trim() === "") ||
-      (typeof value === "number" && (value === 0 || isNaN(value)))
-    ) {
+    if (typeof value === "undefined") {
       return false;
     }
-  }
-  return true;
+    if (typeof value === "string" && value.trim() === "") {
+      return false;
+    }
+    if (typeof value === "number" && (value === 0 || Number.isNaN(value))) {
+      return false;
+    }
+    return true;
+  });
+  return isValid;
 };
 
 export const removeReceiptInfo = (input: string): string => {

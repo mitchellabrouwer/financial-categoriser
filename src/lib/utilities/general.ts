@@ -3,7 +3,7 @@ import { HEADERS } from "../../data/constants";
 import { CategorisedTransaction, Filters } from "../../types/types";
 
 export const ignorePropCase = (
-  obj: Record<string, string>,
+  obj: Record<string, string | number>,
   propName: string,
 ) => {
   if (!obj) return undefined;

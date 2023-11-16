@@ -1,7 +1,7 @@
 import Papa from "papaparse";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { parseTransactions } from "../lib/transactions/parse";
+import parseTransactions from "../lib/transactions/parse";
 import { areHeadersValid } from "../lib/utilities/general";
 import {
   CategorisedTransaction,
@@ -10,7 +10,7 @@ import {
   Transaction,
 } from "../types/types";
 
-export function useTransactionProcessing() {
+function useTransactionProcessing() {
   const workerRef = useRef<Worker>();
   const [progressLoader, setProgressLoader] = useState(0);
   const [categoriserType, setCategoriserType] = useState<"keyword" | "ai">(
@@ -71,7 +71,7 @@ export function useTransactionProcessing() {
       dynamicTyping: true,
       complete: (result) => {
         const headers = result.meta.fields;
-        console.log(headers);
+
         // TODO: check here if already categorised
         if (headers && !areHeadersValid(headers)) {
           toast.error("Headers are not in the format, please try again.", {
@@ -86,10 +86,10 @@ export function useTransactionProcessing() {
 
         workerRef?.current?.postMessage({
           transactions: parsedTransactions,
-          categoriserType: categoriserType,
+          categoriserType,
         });
       },
-      error: (error) => {
+      error: () => {
         setIsLoading(false);
         toast.error("Something went wrong :-( error parsing CSV", {
           position: "top-center",
@@ -115,3 +115,5 @@ export function useTransactionProcessing() {
     setCategoryCount,
   };
 }
+
+export default useTransactionProcessing;

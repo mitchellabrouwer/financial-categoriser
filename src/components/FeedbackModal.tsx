@@ -10,8 +10,6 @@ function FeedbackModal({ isShowing, toggle }: FeedbackModalProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleIframeLoad = () => {
-    console.log("here");
-
     setIsLoading(false);
   };
 

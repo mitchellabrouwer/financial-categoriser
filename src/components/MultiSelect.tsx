@@ -12,12 +12,10 @@ export interface ColourOption {
 const colourStyles: StylesConfig<ColourOption, true> = {
   control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-    console.log(data.color);
     if (typeof data.color !== "string" || !data.color.length) {
-      console.warn("Invalid color data detected, add to styles:", data.color);
+      // console.warn("Invalid color data detected, add to styles:", data.color);
       return styles; // or provide a default styling
     }
-    console.log(chroma(data.color));
 
     const color = chroma(data.color);
     return {
@@ -25,17 +23,17 @@ const colourStyles: StylesConfig<ColourOption, true> = {
       backgroundColor: isDisabled
         ? undefined
         : isSelected
-        ? data.color
-        : isFocused
-        ? color.alpha(0.1).css()
-        : undefined,
+          ? data.color
+          : isFocused
+            ? color.alpha(0.1).css()
+            : undefined,
       color: isDisabled
         ? "#ccc"
         : isSelected
-        ? chroma.contrast(color, "white") > 2
-          ? "white"
-          : "black"
-        : data.color,
+          ? chroma.contrast(color, "white") > 2
+            ? "white"
+            : "black"
+          : data.color,
       cursor: isDisabled ? "not-allowed" : "default",
       ":active": {
         ...styles[":active"],
@@ -79,15 +77,10 @@ export default function MultiSelect({
   options: ColourOption[];
   onChangeHandler: (value: MultiValue<ColourOption>) => void;
 }) {
-  // pass this in?
-  // const handleChange = (value: MultiValue<ColourOption>) => {
-  //   console.log(value);
-  // };
-
   return (
     <Select
       // menuPosition="fixed"
-      closeMenuOnSelect={true}
+      closeMenuOnSelect
       isMulti
       options={options}
       styles={colourStyles}

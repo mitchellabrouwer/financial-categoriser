@@ -3,15 +3,14 @@ import {
   MonthlyCategoryTotals,
 } from "../../types/types";
 
-// TODO: add return type
-export const aggregateByMonth = (
+function aggregateByMonth(
   transactions: CategorisedTransaction[],
-): MonthlyCategoryTotals => {
+): MonthlyCategoryTotals {
   const organiseByMonth = transactions.reduce<MonthlyCategoryTotals>(
     (accumulator, transaction) => {
       // assuming dd/mm/yyyy format
 
-      const [day, month, year] = transaction.date.split("/");
+      const [, month, year] = transaction.date.split("/");
       const monthYear = `${year}-${month}`;
       if (transaction.amount < 0) {
         if (!accumulator[monthYear]) {
@@ -27,12 +26,13 @@ export const aggregateByMonth = (
         }
 
         return accumulator;
-      } else {
-        return accumulator;
       }
+      return accumulator;
     },
     {},
   );
 
   return organiseByMonth;
-};
+}
+
+export default aggregateByMonth;

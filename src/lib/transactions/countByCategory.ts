@@ -1,11 +1,11 @@
 import { CategorisedTransaction, CategoryCounts } from "../../types/types";
 
-export const countByCategory = (
+function countByCategory(
   transactions: CategorisedTransaction[],
-): CategoryCounts => {
+): CategoryCounts {
   const categoryCounts = transactions.reduce<CategoryCounts>(
     (accumulator, transaction) => {
-      const category = transaction.category;
+      const { category } = transaction;
       if (category) {
         accumulator[category] = (accumulator[category] || 0) + 1;
       }
@@ -14,4 +14,6 @@ export const countByCategory = (
     {},
   );
   return categoryCounts;
-};
+}
+
+export default countByCategory;

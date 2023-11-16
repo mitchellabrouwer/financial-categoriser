@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { isMobile } from "react-device-detect";
-import { chartjsParseBar } from "../lib/chartjs/barTransform";
+import chartjsParseBar from "../lib/chartjs/barTransform";
 import { MonthlyCategoryTotals } from "../types/types";
 
 ChartJS.register(

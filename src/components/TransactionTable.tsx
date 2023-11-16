@@ -98,14 +98,7 @@ export default function TransactionTable({
   }, [transactions]);
 
   const handleChangeCategory = useCallback(
-    (
-      index: number,
-      newCategory: SingleValue<{
-        value: string | undefined;
-        label: string | undefined;
-      }>,
-      description: string,
-    ) => {
+    (index: number, newCategory: SingleValue<Option>, description: string) => {
       if (!newCategory) return;
 
       const relatedMatches = fuse

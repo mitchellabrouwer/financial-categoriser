@@ -1,7 +1,5 @@
-import { Dispatch, FC, SetStateAction } from "react";
-import { generateSampleTransactions } from "../data/sampleData";
-import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
-import { countByCategory } from "../lib/transactions/countByCategory";
+import { Dispatch, SetStateAction } from "react";
+import generateSampleTransactions from "../data/sampleData";
 import { ActiveView, CategorisedTransaction } from "../types/types";
 
 interface SampleDataProps {
@@ -10,17 +8,18 @@ interface SampleDataProps {
   setActiveView: Dispatch<SetStateAction<ActiveView>>;
 }
 
-export const SampleDataButton: FC<SampleDataProps> = ({
+function SampleDataButton({
   setTransactions,
   setActiveView,
   setAllTransactions,
-}) => {
+}: SampleDataProps) {
   return (
     <button
+      type="button"
       onClick={() => {
         const sampleTransactions = generateSampleTransactions(100);
-        const categoriesByMonth = aggregateByMonth(sampleTransactions);
-        const categoryCount = countByCategory(sampleTransactions);
+        // const categoriesByMonth = aggregateByMonth(sampleTransactions);
+        // const categoryCount = countByCategory(sampleTransactions);
 
         setTransactions(sampleTransactions);
         setAllTransactions(sampleTransactions);
@@ -32,4 +31,6 @@ export const SampleDataButton: FC<SampleDataProps> = ({
       Try with sample data
     </button>
   );
-};
+}
+
+export default SampleDataButton;

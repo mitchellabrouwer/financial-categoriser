@@ -7,9 +7,9 @@ import {
   removeReceiptInfo,
 } from "../utilities/transactionValidation";
 
-export const parseTransactions = (
+function parseTransactions(
   rawCsv: Papa.ParseResult<Transaction>,
-): ParsedTransaction[] => {
+): ParsedTransaction[] {
   // const startDate = moment(
   //   ignorePropCase(rawCsv.data[0], "date"),
   //   "DD-MM-YYYY",
@@ -30,11 +30,11 @@ export const parseTransactions = (
 
     return {
       id: uuidv4(),
-      date: ignorePropCase(transaction, "date"),
+      date: ignorePropCase(transaction, "date") || "",
       description: removeReceiptInfo(
-        ignorePropCase(transaction, "description"),
+        ignorePropCase(transaction, "description") || "",
       ),
-      amount: amount,
+      amount,
     };
   });
 
@@ -44,4 +44,6 @@ export const parseTransactions = (
         isValidTransaction(transaction) && isExternalUnlessSaving(transaction),
     );
   return validParsedTransactions;
-};
+}
+
+export default parseTransactions;

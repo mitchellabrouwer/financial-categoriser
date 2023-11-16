@@ -6,11 +6,11 @@ const options: SelectCategoriserTypeOption[] = [
   { value: "ai", label: "🤖 AI Categorising" },
 ];
 
-interface Props {
+interface ModelSelectProps {
   onChange: (selectedOption: SelectCategoriserTypeOption | null) => void;
 }
 
-export const ModelSelect: React.FC<Props> = ({ onChange }) => {
+function ModelSelect({ onChange }: ModelSelectProps) {
   return (
     <div className="w-full max-w-3xl text-gray-600">
       <Select
@@ -25,4 +25,6 @@ export const ModelSelect: React.FC<Props> = ({ onChange }) => {
       />
     </div>
   );
-};
+}
+
+export default ModelSelect;

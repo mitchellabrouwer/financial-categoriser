@@ -6,9 +6,9 @@ import { specificCategories } from "../../data/specificCategories";
 import { MonthlyCategoryTotals } from "../../types/types";
 import { toTwClass } from "../utilities/general";
 
-export const chartjsParseBar = (
+function chartjsParseBar(
   transactions: MonthlyCategoryTotals,
-): ChartData<"bar"> => {
+): ChartData<"bar"> {
   const transactionsSorted = Object.keys(transactions)
     .sort((a, b) => moment(b, "YYYY-MM").diff(moment(a, "YYYY-MM")))
     .map((date) => {
@@ -45,6 +45,8 @@ export const chartjsParseBar = (
 
   return {
     labels: transactionsSorted.map((details) => details.date),
-    datasets: datasets,
+    datasets,
   };
-};
+}
+
+export default chartjsParseBar;

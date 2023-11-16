@@ -1,9 +1,4 @@
-// TODO: This needs to be fleshed out further
-
-// How to split annual payments from monthly?
-// How to split holiday house?=
-
-export const specificCategories: { [category: string]: string[] } = {
+const specificCategories: { [category: string]: string[] } = {
   Transport: [
     // transport moved forward to avoid Coles and Coles Express clash
     "BP",
@@ -1239,3 +1234,5 @@ export const specificCategories: { [category: string]: string[] } = {
   ],
   Donations: ["ST VINCENT DE PAUL"],
 };
+
+export default specificCategories;
