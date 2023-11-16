@@ -1,13 +1,4 @@
-import Fuse from "fuse.js";
-import _debounce from "lodash.debounce";
-import {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import useScrollbarSize from "react-scrollbar-size";
 import Select, { MultiValue, SingleValue } from "react-select";
 import { toast } from "react-toastify";
@@ -15,21 +6,19 @@ import { AutoSizer, List, ListRowProps } from "react-virtualized";
 import { colours } from "../../styles/colours";
 import { categoryList } from "../data/categoryList";
 import useModal from "../hooks/useModal";
+import useTransactionFilter from "../hooks/useTransactionFilter";
+import useTransactionSearch from "../hooks/useTransactionSearch";
 import {
+  categoryOptions,
   countUnknown,
-  filterTransactions,
   toTwClass,
 } from "../lib/utilities/general";
-import { CategorisedTransaction, Filters } from "../types/types";
+import loadFuse from "../lib/utilities/loadFuse";
+import { CategorisedTransaction, Option } from "../types/types";
 import CategoryListModal from "./CategoryListModal";
 import MultiSelect, { ColourOption } from "./MultiSelect";
-import { Search } from "./Search";
+import Search from "./Search";
 import TransactionRow from "./TransactionRow";
-
-interface Option {
-  value: string;
-  label: string;
-}
 
 const monthOptions: Option[] = [
   { value: "", label: "All" },
@@ -68,12 +57,6 @@ const amountOptions = [
   { value: "50001,", label: "Above $50,001" },
 ];
 
-const options: Fuse.IFuseOptions<CategorisedTransaction> = {
-  includeScore: true,
-  keys: ["description"],
-  threshold: 0.05,
-};
-
 export default function TransactionTable({
   transactions,
   allTransactions,
@@ -85,115 +68,95 @@ export default function TransactionTable({
     React.SetStateAction<CategorisedTransaction[]>
   >;
 }) {
-  // TODO: confirm if sorting this way is desired
-  const sortedTransactions = transactions.sort((a, b) => a.amount - b.amount);
-
-  const [monthFilter, setMonthFilter] = useState("");
-  const [query, setQuery] = useState("");
-  const [amountFilter, setAmountFilter] = useState("");
-  const [categoryFilters, setCategoryFilters] = useState<string[]>([]);
   const [unknowns, setUnknowns] = useState<number>(0);
-  const { isShowing, toggle } = useModal();
-
-  const categoryOptions = categoryList.map((category) => {
-    return { label: category, value: category };
-  });
-
   const searchRef = useRef<HTMLInputElement>(null);
-  const fuse = useMemo(
-    () => new Fuse(allTransactions, options),
-    [allTransactions],
-  );
 
+  const fuse = useMemo(() => loadFuse(allTransactions), [allTransactions]);
+  const sortedTransactions = useMemo(() => {
+    return [...transactions].sort((a, b) => a.amount - b.amount);
+  }, [transactions]);
+
+  const { isShowing, toggle } = useModal();
   const { width: widthScrollBar } = useScrollbarSize();
+  const { setQuery } = useTransactionSearch({
+    allTransactions,
+    setTransactions,
+    fuse,
+  });
+  const { setFilters } = useTransactionFilter({
+    initialFilters: { amount: "", month: "", categories: [] },
+    allTransactions,
+    setTransactions,
+    onNoResultsFound: () => {
+      toast.error("No transactions found", { position: "bottom-center" });
+    },
+  });
 
   useEffect(() => {
     const count = countUnknown(transactions);
     setUnknowns(count);
   }, [transactions]);
 
-  useEffect(() => {
-    const filters: Filters = {
-      month: monthFilter,
-      query,
-      amount: amountFilter,
-      categories: categoryFilters,
-    };
+  const handleChangeCategory = useCallback(
+    (
+      index: number,
+      newCategory: SingleValue<{
+        value: string | undefined;
+        label: string | undefined;
+      }>,
+      description: string,
+    ) => {
+      if (!newCategory) return;
 
-    const filtered = filterTransactions(allTransactions, filters, fuse);
+      const relatedMatches = fuse
+        .search(description)
+        .map((result) => result.item.id);
 
-    if (filtered.length > 0) {
-      setTransactions(filtered);
-    } else {
-      toast.error("no transactions found", {
-        position: "bottom-center",
+      const updatedTransactions = transactions.map((transaction, idx) => {
+        if (relatedMatches.includes(transaction.id) || idx === index) {
+          return { ...transaction, category: newCategory.value };
+        }
+        return transaction;
       });
-    }
-  }, [
-    monthFilter,
-    query,
-    amountFilter,
-    categoryFilters,
-    allTransactions,
-    setTransactions,
-    fuse,
-  ]);
 
-  const handleChangeCategory = (
-    index: number,
-    newCategory: SingleValue<{
-      value: string | undefined;
-      label: string | undefined;
-    }>,
-    description: string,
-  ) => {
-    if (!newCategory) return;
+      const toastMessage =
+        relatedMatches.length > 1
+          ? `${relatedMatches.length} related transactions updated`
+          : `${relatedMatches.length} transaction updated`;
 
-    const updatedTransactions = [...transactions];
-    const relatedMatches = fuse
-      .search(description)
-      .map((result) => result.item.id);
+      toast.success(toastMessage, {
+        position: "bottom-right",
+      });
 
-    updatedTransactions.forEach((transaction, idx) => {
-      if (relatedMatches.includes(transaction.id) || idx === index) {
-        transaction.category = newCategory.value;
-      }
-    });
-
-    const toastMessage =
-      relatedMatches.length > 1
-        ? `${relatedMatches.length} related transactions updated`
-        : `${relatedMatches.length} transaction updated`;
-
-    toast.success(toastMessage, {
-      position: "bottom-right",
-    });
-
-    setTransactions(updatedTransactions);
-  };
-
-  const handleMonthFilter = (selections: SingleValue<Option>) => {
-    return selections ? setMonthFilter(selections.value) : setMonthFilter("");
-  };
-
-  const handleQueryChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const handleAmountFilter = (selections: SingleValue<Option>) => {
-    return selections ? setAmountFilter(selections.value) : setAmountFilter("");
-  };
-
-  const handleCategoryFilters = (categoryValues: MultiValue<ColourOption>) => {
-    setCategoryFilters(categoryValues.map((data) => data.value));
-  };
-
-  // TODO: create a useDebounce hook for this
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedQueryChange = useCallback(
-    _debounce(handleQueryChange, 500),
-    [],
+      setTransactions(updatedTransactions);
+    },
+    [fuse, setTransactions, transactions],
   );
+
+  const handleMonthFilter = (selection: SingleValue<Option>) => {
+    setFilters((filters) => ({
+      ...filters,
+      month: selection ? selection.value : "",
+    }));
+  };
+
+  const handleAmountFilter = (selection: SingleValue<Option>) => {
+    setFilters((filters) => ({
+      ...filters,
+      amount: selection ? selection.value : "",
+    }));
+  };
+
+  const handleCategoryFilters = (
+    selectedCategoryOptions: MultiValue<ColourOption>,
+  ) => {
+    setFilters((filters) => ({
+      ...filters,
+      categories: selectedCategoryOptions
+        ? selectedCategoryOptions.map((option) => option.value)
+        : [],
+    }));
+  };
 
   const rowRenderer = useCallback(
     ({ index, key, style }: ListRowProps) => {
@@ -209,7 +172,7 @@ export default function TransactionTable({
         />
       );
     },
-    [sortedTransactions, categoryOptions, handleChangeCategory],
+    [sortedTransactions, handleChangeCategory],
   );
 
   return (
@@ -256,11 +219,7 @@ export default function TransactionTable({
           />
         </div>
         <div className="flex-grow">
-          <Search
-            setQuery={setQuery}
-            searchRef={searchRef}
-            onChangeHandler={debouncedQueryChange}
-          />
+          <Search searchRef={searchRef} setQuery={setQuery} />
         </div>
         <div className="w-[100px] flex-shrink-0 md:w-[150px]">
           <Select

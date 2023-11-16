@@ -1,8 +1,11 @@
-import Fuse from "fuse.js";
+import { categoryList } from "../../data/categoryList";
 import { HEADERS } from "../../data/constants";
 import { CategorisedTransaction, Filters } from "../../types/types";
 
-export const ignorePropCase = (obj: any, propName: string): any => {
+export const ignorePropCase = (
+  obj: Record<string, string>,
+  propName: string,
+) => {
   if (!obj) return undefined;
 
   return (
@@ -31,9 +34,8 @@ export const toTwClass = (label?: string, prefix?: string): string => {
       .replace(/[^\w-]+/g, "");
     if (prefix) {
       return `${prefix}${transformedLabel}`;
-    } else {
-      return transformedLabel;
     }
+    return transformedLabel;
   }
   return "";
 };
@@ -41,23 +43,23 @@ export const toTwClass = (label?: string, prefix?: string): string => {
 export const filterTransactions = (
   transactions: CategorisedTransaction[],
   filters: Filters,
-  fuse: Fuse<CategorisedTransaction>,
+  // fuse: Fuse<CategorisedTransaction>,
 ) => {
   let filtered: CategorisedTransaction[] = [...transactions];
   const {
     month: monthFilter,
-    query,
+    // query,
     amount: amountFilter,
     categories: categoryFilters,
   } = filters;
 
-  if (query && fuse !== null) {
-    filtered = fuse.search(query).map((result) => result.item);
-  }
+  // if (query && fuse !== null) {
+  //   filtered = fuse.search(query).map((result) => result.item);
+  // }
 
   if (monthFilter) {
     filtered = filtered.filter((transaction) => {
-      const [_, month] = transaction.date.split("/");
+      const [, month] = transaction.date.split("/");
       return month === monthFilter;
     });
   }
@@ -68,9 +70,11 @@ export const filterTransactions = (
       const amount = Math.abs(transaction.amount);
       if (lower && upper) {
         return amount >= +lower && amount <= +upper;
-      } else if (lower) {
+      }
+      if (lower) {
         return amount >= +lower;
-      } else if (upper) {
+      }
+      if (upper) {
         return amount <= +upper;
       }
       return true;
@@ -89,10 +93,8 @@ export const filterTransactions = (
 export const countUnknown = (transactions: CategorisedTransaction[]) => {
   if (transactions.length) {
     return transactions.reduce((accumulator, current) => {
-      if (current.category === "Unknown") {
-        return (accumulator += 1);
-      }
-      return accumulator;
+      const increment = current.category === "Unknown" ? 1 : 0;
+      return accumulator + increment;
     }, 0);
   }
   return 0;
@@ -100,9 +102,13 @@ export const countUnknown = (transactions: CategorisedTransaction[]) => {
 
 export const areHeadersValid = (parsedHeaders: string[]): boolean => {
   if (parsedHeaders.length !== HEADERS.length) return false;
-  for (let i = 0; i < parsedHeaders.length; i++) {
+  for (let i = 0; i < parsedHeaders.length; i += 1) {
     if (parsedHeaders[i].toLowerCase() !== HEADERS[i].toLowerCase())
       return false;
   }
   return true;
 };
+
+export const categoryOptions = categoryList.map((category) => {
+  return { label: category, value: category };
+});

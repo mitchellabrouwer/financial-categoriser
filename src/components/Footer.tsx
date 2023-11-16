@@ -1,5 +1,5 @@
 import useModal from "../hooks/useModal";
-import { FeedbackModal } from "./FeedbackModal";
+import FeedbackModal from "./FeedbackModal";
 import { PrivacyPolicyModal } from "./PrivacyPolicy";
 
 const Footer: React.FC = () => {

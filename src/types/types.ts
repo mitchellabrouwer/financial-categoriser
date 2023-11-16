@@ -43,7 +43,7 @@ export interface CategoryCounts {
 }
 
 export interface Filters {
-  query: string;
+  // query: string;
   month: string;
   amount: string;
   categories: string[];
@@ -57,3 +57,8 @@ export type SelectCategoriserTypeOption = {
   value: CategoriserType;
   label: string;
 };
+
+export interface Option {
+  value: string;
+  label: string;
+}

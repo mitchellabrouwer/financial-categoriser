@@ -21,6 +21,7 @@
     "prettier/prettier": ["error"],
     "consistent-return": "off",
     "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "no-nested-ternary": "off"
   }
 }

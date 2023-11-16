@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { FaFileExport } from "react-icons/fa";
 import { sortByDate } from "../lib/utilities/sort";
 import { CategorisedTransaction } from "../types/types";
@@ -8,7 +7,7 @@ interface ExportToCsvProps {
   styles: string;
 }
 
-const ExportToCsv: FC<ExportToCsvProps> = ({ transactions, styles }) => {
+function ExportToCsv({ transactions, styles }: ExportToCsvProps) {
   const exportToCsv = () => {
     if (transactions?.length > 0) {
       const sortedTransactions = sortByDate(transactions);
@@ -37,11 +36,11 @@ const ExportToCsv: FC<ExportToCsvProps> = ({ transactions, styles }) => {
   };
 
   return (
-    <button onClick={exportToCsv} className={styles}>
+    <button type="button" onClick={exportToCsv} className={styles}>
       <FaFileExport />
       <span>Export</span>
     </button>
   );
-};
+}
 
 export default ExportToCsv;

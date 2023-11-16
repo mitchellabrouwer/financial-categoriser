@@ -6,10 +6,7 @@ interface FeedbackModalProps {
   toggle: () => void;
 }
 
-export const FeedbackModal: React.FC<FeedbackModalProps> = ({
-  isShowing,
-  toggle,
-}) => {
+function FeedbackModal({ isShowing, toggle }: FeedbackModalProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleIframeLoad = () => {
@@ -32,6 +29,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
         {/* <!-- 105.5% is for 640x675 aspect ratio --> */}
         <div className="relative w-full pb-[105.5%]">
           <iframe
+            title="Your Feedback"
             className="absolute inset-0 h-full w-full border-0 text-black"
             src={process.env.NEXT_PUBLIC_GOOGLE_FORM_URL}
             onLoad={handleIframeLoad}
@@ -42,4 +40,6 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
       </div>
     </Modal>
   );
-};
+}
+
+export default FeedbackModal;

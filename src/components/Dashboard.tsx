@@ -7,7 +7,7 @@ import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
 import { countByCategory } from "../lib/transactions/countByCategory";
 import { ActiveView } from "../types/types";
 import Features from "./Features";
-import { FileDrop } from "./FileDrop";
+import FileDrop from "./FileDrop";
 import Footer from "./Footer";
 import { Loader } from "./Loader";
 import { Navbar } from "./Navbar";

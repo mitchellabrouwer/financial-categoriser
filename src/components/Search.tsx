@@ -1,17 +1,12 @@
-import { Dispatch, FC, KeyboardEvent, RefObject, SetStateAction } from "react";
+import { Dispatch, KeyboardEvent, RefObject, SetStateAction } from "react";
 import { BiSearch } from "react-icons/bi";
 
 interface SearchProps {
   setQuery: Dispatch<SetStateAction<string>>;
   searchRef: RefObject<HTMLInputElement>;
-  onChangeHandler: any;
 }
 
-export const Search: FC<SearchProps> = ({
-  setQuery,
-  searchRef,
-  onChangeHandler,
-}) => {
+function Search({ setQuery, searchRef }: SearchProps) {
   const onSearchEnter = async (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       setQuery(searchRef.current?.value || "");
@@ -29,9 +24,11 @@ export const Search: FC<SearchProps> = ({
         id="search"
         className="text-md block w-full rounded-md  border py-[6px] pl-8 capitalize text-gray-950 focus:border-blue-500 focus:ring-blue-500"
         placeholder="find..."
-        onChange={onChangeHandler}
+        onChange={(event) => setQuery(event.target.value)}
         onKeyUp={onSearchEnter}
       />
     </div>
   );
-};
+}
+
+export default Search;

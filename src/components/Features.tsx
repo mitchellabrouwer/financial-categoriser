@@ -4,7 +4,7 @@ import {
   MdOutlinePrivacyTip,
 } from "react-icons/md";
 
-const Features: React.FC = () => {
+function Features() {
   return (
     <div className="py-4 text-white">
       <div className="mx-auto max-w-7xl px-6">
@@ -66,6 +66,6 @@ const Features: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Features;

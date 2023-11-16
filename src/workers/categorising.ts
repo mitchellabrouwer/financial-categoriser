@@ -20,15 +20,24 @@ const clashResolvers: Record<string, string> = {
   // Coles: "Groceries",
 };
 
+// export const resolveKnownClashes = (
+//   description: string,
+// ): string | undefined => {
+//   for (const key of Object.keys(clashResolvers)) {
+//     if (description.includes(key)) {
+//       return clashResolvers[key];
+//     }
+//   }
+//   return undefined;
+// };
+
 export const resolveKnownClashes = (
   description: string,
 ): string | undefined => {
-  for (const clash in clashResolvers) {
-    if (description.includes(clash)) {
-      return clashResolvers[clash];
-    }
-  }
-  return undefined;
+  const clashKey = Object.keys(clashResolvers).find((key) =>
+    description.includes(key),
+  );
+  return clashKey ? clashResolvers[clashKey] : undefined;
 };
 
 const categoriseTransaction = (
@@ -36,20 +45,17 @@ const categoriseTransaction = (
   categories: Record<string, string[]>,
   checkFn: (phrase: string, target: string) => boolean,
 ): string | undefined => {
-  for (const category in categories) {
-    for (const keyword of categories[category]) {
-      if (checkFn(description, keyword)) {
-        return category;
-      }
-    }
-  }
-  return undefined;
+  const foundCategory = Object.entries(categories).find(([, keywords]) =>
+    keywords.some((keyword) => checkFn(description, keyword)),
+  );
+
+  return foundCategory ? foundCategory[0] : undefined;
 };
 
 export const keywordCategorise = (
   transactions: ParsedTransaction[],
 ): CategorisedTransaction[] => {
-  return transactions.map((transaction, index, array) => {
+  return transactions.map((transaction, index) => {
     const categorisedTransaction: CategorisedTransaction = { ...transaction };
 
     const knownClashCategory = resolveKnownClashes(transaction.description);
