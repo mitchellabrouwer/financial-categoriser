@@ -1,5 +1,5 @@
-import { useState, useMemo, Dispatch, SetStateAction } from "react";
 import Fuse from "fuse.js";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { CategorisedTransaction } from "../types/types";
 import useDebounce from "./useDebounceHook";
 

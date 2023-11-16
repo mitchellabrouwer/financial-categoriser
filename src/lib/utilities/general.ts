@@ -2,10 +2,8 @@ import { categoryList } from "../../data/categoryList";
 import { HEADERS } from "../../data/constants";
 import { CategorisedTransaction, Filters } from "../../types/types";
 
-export const ignorePropCase = (
-  obj: Record<string, string | number>,
-  propName: string,
-) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ignorePropCase = (obj: Record<string, any>, propName: string) => {
   if (!obj) return undefined;
 
   return (

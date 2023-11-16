@@ -1,5 +1,5 @@
 import { FaFileExport } from "react-icons/fa";
-import { sortByDate } from "../lib/utilities/sort";
+import sortByDate from "../lib/utilities/sort";
 import { CategorisedTransaction } from "../types/types";
 
 interface ExportToCsvProps {

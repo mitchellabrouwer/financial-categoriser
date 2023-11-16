@@ -1,8 +1,8 @@
 import fetchCategoriesFromModel from "../api/fetchCategoriesFromModel";
-import { genericCategories } from "../data/genericCategories";
-import { specificCategories } from "../data/specificCategories";
-import { aggregateByMonth } from "../lib/transactions/aggregateByMonth";
-import { countByCategory } from "../lib/transactions/countByCategory";
+import genericCategories from "../data/genericCategories";
+import specificCategories from "../data/specificCategories";
+import aggregateByMonth from "../lib/transactions/aggregateByMonth";
+import countByCategory from "../lib/transactions/countByCategory";
 import {
   containsFullWord,
   containsWordPartial,

@@ -1,8 +1,10 @@
+/* eslint-disable react/no-unstable-nested-components */
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import useScrollbarSize from "react-scrollbar-size";
 import Select, { MultiValue, SingleValue } from "react-select";
 import { toast } from "react-toastify";
-import { AutoSizer, List, ListRowProps } from "react-virtualized";
+import { AutoSizer, List } from "react-virtualized";
 import { colours } from "../../styles/colours";
 import { categoryList } from "../data/categoryList";
 import useModal from "../hooks/useModal";
@@ -151,22 +153,22 @@ export default function TransactionTable({
     }));
   };
 
-  const rowRenderer = useCallback(
-    ({ index, key, style }: ListRowProps) => {
-      const transaction = sortedTransactions[index];
-      return (
-        <TransactionRow
-          key={key}
-          index={index}
-          style={style}
-          transaction={transaction}
-          categoryOptions={categoryOptions}
-          handleChangeCategory={handleChangeCategory}
-        />
-      );
-    },
-    [sortedTransactions, handleChangeCategory],
-  );
+  // const rowRenderer = useCallback(
+  // ({ index, key, style }: ListRowProps) => {
+  //   const transaction = sortedTransactions[index];
+  //   return (
+  //     <TransactionRow
+  //       key={key}
+  //       index={index}
+  //       style={style}
+  //       transaction={transaction}
+  //       categoryOptions={categoryOptions}
+  //       handleChangeCategory={handleChangeCategory}
+  //     />
+  //   );
+  // },
+  //   [sortedTransactions, handleChangeCategory],
+  // );
 
   return (
     <div className="relative mx-2 my-2 flex h-full flex-col shadow-md sm:rounded-lg">
@@ -239,7 +241,19 @@ export default function TransactionTable({
             height={height}
             rowCount={sortedTransactions.length}
             rowHeight={37}
-            rowRenderer={rowRenderer}
+            rowRenderer={({ index, key, style }) => {
+              const transaction = sortedTransactions[index];
+              return (
+                <TransactionRow
+                  key={key}
+                  index={index}
+                  style={style}
+                  transaction={transaction}
+                  categoryOptions={categoryOptions}
+                  handleChangeCategory={handleChangeCategory}
+                />
+              );
+            }}
           />
         )}
       </AutoSizer>

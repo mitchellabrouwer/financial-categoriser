@@ -16,6 +16,7 @@ function useTransactionFilter({
   onNoResultsFound,
 }: UseTransactionFilterProps) {
   const [filters, setFilters] = useState(initialFilters);
+  console.log(filters);
 
   useEffect(() => {
     const filtered = filterTransactions(allTransactions, filters);
