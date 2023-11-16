@@ -26,7 +26,7 @@ function SampleDataButton({
 
         setActiveView("charts");
       }}
-      className="m-1 w-full max-w-xs rounded bg-dining px-4 py-2 text-center font-bold text-white"
+      className="m-1 w-full max-w-xs rounded bg-automotive px-4 py-2 text-center font-bold text-white"
     >
       Try with sample data
     </button>

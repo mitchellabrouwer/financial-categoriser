@@ -41,10 +41,10 @@ function ChartsSmallScreen({
       <div className="text-center">
         <button
           type="button"
-          className={`-mb-14 mr-2 rounded-lg rounded-b-none border border-gray-300  px-5 py-1.5 text-sm font-medium text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:text-white ${
+          className={`-mb-14 mr-2 rounded-lg rounded-b-none border border-gray-600 px-5 py-1.5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-gray-200 ${
             tableView === "transaction"
               ? "bg-dining hover:bg-housing"
-              : "bg-white hover:bg-dining dark:bg-gray-800 dark:hover:border-gray-600"
+              : "bg-gray-800 hover:border-gray-600 hover:bg-dining"
           }`}
           onClick={() => setTableView("transaction")}
         >
@@ -52,10 +52,10 @@ function ChartsSmallScreen({
         </button>
         <button
           type="button"
-          className={`-mb-14 mr-2 rounded-lg rounded-b-none border border-gray-300  px-5 py-1.5 text-sm font-medium text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:text-white ${
+          className={`-mb-14 mr-2 rounded-lg rounded-b-none border border-gray-600 px-5 py-1.5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-gray-200 ${
             tableView === "summary"
               ? "bg-dining hover:bg-housing"
-              : "bg-white hover:bg-dining dark:bg-gray-800 dark:hover:border-gray-600"
+              : "bg-gray-800 hover:border-gray-600 hover:bg-dining"
           }`}
           onClick={() => setTableView("summary")}
         >

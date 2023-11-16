@@ -4,7 +4,7 @@ interface ProgressLoaderProps {
 
 function ProgressLoader({ progressLoader }: ProgressLoaderProps) {
   return (
-    <div className="relative mt-10 h-6 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+    <div className="relative mt-10 h-6 w-full overflow-hidden rounded-full bg-gray-700">
       <div
         className="h-6 rounded-full bg-withdrawals p-0.5 text-center text-xs font-medium leading-none text-blue-100 transition-all duration-300 ease-out"
         style={{ width: `${progressLoader}%` }}

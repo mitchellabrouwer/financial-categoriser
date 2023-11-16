@@ -26,42 +26,42 @@ export default function SummaryTable({
 
   return (
     <div className="relative mx-2 my-2 h-full overflow-scroll shadow-md sm:rounded-lg">
-      <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-        <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-left text-sm  text-gray-500">
+        <thead className="bg-gray-700 text-xs  uppercase text-gray-700">
           <tr>
             <th
               scope="col"
-              className="sticky top-0 rounded-tl-lg bg-gray-50 px-3 py-1 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:bg-gray-700 md:px-3 md:py-1"
+              className="sticky top-0 rounded-tl-lg bg-gray-700 px-3 py-1 text-left text-xs font-medium uppercase tracking-wider text-gray-500 md:px-3 md:py-1"
             >
               Category
             </th>
             <th
               scope="col"
-              className="sticky top-0 hidden bg-gray-50 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 dark:bg-gray-700 lg:table-cell"
+              className="sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell"
             >
               Count
             </th>
             <th
               scope="col"
-              className="sticky top-0 bg-gray-50 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 dark:bg-gray-700"
+              className="sticky top-0 bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
             >
               Avg/Week
             </th>
             <th
               scope="col"
-              className="xs:table-cell sticky top-0 hidden bg-gray-50 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 dark:bg-gray-700"
+              className="xs:table-cell sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
             >
               Avg/Mth
             </th>
             <th
               scope="col"
-              className="sticky top-0 hidden bg-gray-50 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 dark:bg-gray-700 lg:table-cell"
+              className="sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell"
             >
               Total
             </th>
             <th
               scope="col"
-              className="sticky top-0 bg-gray-50 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 dark:bg-gray-700"
+              className="sticky top-0 bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
             >
               %
             </th>
@@ -69,10 +69,7 @@ export default function SummaryTable({
         </thead>
         <tbody className="divide-y divide-gray-200 bg-white">
           {sortedCategories.map((category, index) => (
-            <tr
-              key={category}
-              className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
-            >
+            <tr key={category} className={index % 2 === 0 ? "" : "bg-white"}>
               <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
                 {category}
               </td>

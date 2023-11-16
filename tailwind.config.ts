@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { colours } from "./styles/colours";
+import colours from "./styles/colours";
 
 const config: Config = {
   content: [
@@ -7,7 +7,9 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  safelist: [...Object.keys(colours.backgroundColor).map((category) => `bg-${category}`)],
+  safelist: [
+    ...Object.keys(colours.backgroundColor).map((category) => `bg-${category}`),
+  ],
   theme: {
     extend: {
       backgroundImage: {

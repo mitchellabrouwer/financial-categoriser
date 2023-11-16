@@ -1,4 +1,4 @@
-export const colours: {
+const colours: {
   backgroundColor: { [key: string]: string };
   borderColor: { [key: string]: string };
 } = {
@@ -59,3 +59,5 @@ export const colours: {
     withdrawals: "#FF4F72",
   },
 };
+
+export default colours;

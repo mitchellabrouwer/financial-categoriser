@@ -5,7 +5,7 @@ import useScrollbarSize from "react-scrollbar-size";
 import Select, { SingleValue } from "react-select";
 import { toast } from "react-toastify";
 import { AutoSizer, List } from "react-virtualized";
-import { colours } from "../../styles/colours";
+import colours from "../../styles/colours";
 import { categoryList } from "../data/categoryList";
 import useModal from "../hooks/useModal";
 import useTransactionFilterAndSearch from "../hooks/useTransactionFilterAndSearch";
@@ -141,7 +141,7 @@ export default function TransactionTable({
     <div className="relative mx-2 my-2 flex h-full flex-col shadow-md sm:rounded-lg">
       {/* Flexbox used over <table> due to responsivity issues when using react-virtualized */}
 
-      <div className="flex rounded-tl-lg rounded-tr-lg bg-gray-50 p-1 text-sm uppercase text-gray-500 dark:bg-gray-700">
+      <div className="flex rounded-tl-lg rounded-tr-lg bg-gray-50 bg-gray-700 p-1 text-sm uppercase">
         <div className="hidden w-[150px] flex-shrink-0 text-center sm:block">
           Date
         </div>
@@ -160,7 +160,7 @@ export default function TransactionTable({
                 toggle();
               }
             }}
-            className="ml-2 mr-2 rounded-full border border-red-800 bg-red-100 px-4 py-1 text-xs font-medium text-red-800 hover:cursor-pointer hover:border-red-900 hover:bg-red-200 dark:border-red-300 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800"
+            className="ml-2 mr-2 rounded-full border border-red-300 bg-red-900 px-4 py-1 text-xs font-medium text-red-300 hover:cursor-pointer  hover:border-red-900 hover:bg-red-800"
           >
             {unknowns}
           </span>
