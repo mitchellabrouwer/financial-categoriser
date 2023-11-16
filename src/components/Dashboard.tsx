@@ -136,6 +136,15 @@ function Dashboard() {
                   />
                 </>
               )}
+
+              {transactions.length === 0 && (
+                <div className="text-center">
+                  <h1 className="mb-2 text-4xl font-bold text-white">
+                    There are no transactions to show, this might be an error
+                    please contact us
+                  </h1>
+                </div>
+              )}
             </div>
           )}
         </div>
