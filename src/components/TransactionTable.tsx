@@ -5,7 +5,6 @@ import useScrollbarSize from "react-scrollbar-size";
 import Select, { SingleValue } from "react-select";
 import { toast } from "react-toastify";
 import { AutoSizer, List } from "react-virtualized";
-import colours from "../../styles/colours";
 import { categoryList } from "../data/categoryList";
 import useModal from "../hooks/useModal";
 import useTransactionFilterAndSearch from "../hooks/useTransactionFilterAndSearch";
@@ -15,6 +14,7 @@ import {
   toTwClass,
 } from "../lib/utilities/general";
 import loadFuse from "../lib/utilities/loadFuse";
+import colours from "../styles/colours";
 import { CategorisedTransaction, Filters, Option } from "../types/types";
 import CategoryListModal from "./CategoryListModal";
 import MultiSelect, { ColourOption } from "./MultiSelect";

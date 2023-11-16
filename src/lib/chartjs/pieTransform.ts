@@ -1,5 +1,5 @@
 import type { ChartData } from "chart.js";
-import colours from "../../../styles/colours";
+import colours from "../../styles/colours";
 import { AggregateTransactions } from "../../types/types";
 import { toTwClass } from "../utilities/general";
 

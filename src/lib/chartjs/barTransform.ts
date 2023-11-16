@@ -1,8 +1,8 @@
 import type { ChartData } from "chart.js";
 import moment from "moment";
-import colours from "../../../styles/colours";
 import genericCategories from "../../data/genericCategories";
 import specificCategories from "../../data/specificCategories";
+import colours from "../../styles/colours";
 import { MonthlyCategoryTotals } from "../../types/types";
 import { toTwClass } from "../utilities/general";
 

@@ -10,7 +10,7 @@ interface NavbarProps {
 
 function Navbar({ activeView, setActiveView, transactions }: NavbarProps) {
   return (
-    <div className="fixed left-0 top-0 mb-2 w-full bg-automotive text-white">
+    <div className="fixed left-0 top-0 mb-2 w-full bg-utilities text-white">
       <div className="container mx-auto flex items-center justify-center py-2 md:justify-between md:px-6 md:py-2">
         {/* Brand Logo and Name */}
         <button

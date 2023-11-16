@@ -9,7 +9,7 @@ function Features() {
     <div className="py-4 text-white">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base font-semibold leading-7 text-[#80C3E6]">
+          <h2 className="text-base font-semibold leading-7 text-[#80AADD]">
             Free and Secure
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-50 sm:text-4xl">
@@ -24,7 +24,7 @@ function Features() {
             {/* Feature 1 */}
             <div className="relative pl-16">
               <dt className="text-base font-semibold leading-7 text-gray-50">
-                <div className="absolute left-0 top-2 flex h-10 w-10 items-center justify-center rounded-lg bg-automotive">
+                <div className="absolute left-0 top-2 flex h-10 w-10 items-center justify-center rounded-lg bg-utilities">
                   <MdOutlinePrivacyTip className="text-white" size={24} />
                 </div>
                 Your device only.
@@ -37,7 +37,7 @@ function Features() {
             {/* Feature 2 */}
             <div className="relative pl-16">
               <dt className="text-base font-semibold leading-7 text-gray-50">
-                <div className="absolute left-0 top-2 flex h-10 w-10 items-center justify-center rounded-lg bg-automotive">
+                <div className="absolute left-0 top-2 flex h-10 w-10 items-center justify-center rounded-lg bg-utilities">
                   <MdOutlineCategory className="text-white" size={24} />
                 </div>
                 Smart autocategorizing.
@@ -51,7 +51,7 @@ function Features() {
             {/* Feature 3 */}
             <div className="relative pl-16">
               <dt className="text-base font-semibold leading-7 text-gray-50">
-                <div className="absolute left-0 top-2 flex h-10 w-10 items-center justify-center rounded-lg bg-automotive">
+                <div className="absolute left-0 top-2 flex h-10 w-10 items-center justify-center rounded-lg bg-utilities">
                   <MdOutlineAttachMoney className="text-white" size={24} />
                 </div>
                 Committed to help.
