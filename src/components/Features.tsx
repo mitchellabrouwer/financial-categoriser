@@ -44,7 +44,7 @@ function Features() {
               </dt>
               <dd className="text-base leading-7 text-gray-600">
                 Import a csv file from your bank, let autocategorizing work its
-                wonders, and export for your records.
+                wonders then save through export for your records.
               </dd>
             </div>
 
