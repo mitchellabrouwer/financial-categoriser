@@ -72,14 +72,17 @@ const colourStyles: StylesConfig<ColourOption, true> = {
 
 export default function MultiSelect({
   options,
+  values,
   onChangeHandler,
 }: {
   options: ColourOption[];
+  values: MultiValue<ColourOption>;
   onChangeHandler: (value: MultiValue<ColourOption>) => void;
 }) {
   return (
     <Select
       // menuPosition="fixed"
+      value={values}
       closeMenuOnSelect
       isMulti
       options={options}

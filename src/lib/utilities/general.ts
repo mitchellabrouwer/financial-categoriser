@@ -1,3 +1,4 @@
+import Fuse from "fuse.js";
 import { categoryList } from "../../data/categoryList";
 import { HEADERS } from "../../data/constants";
 import { CategorisedTransaction, Filters } from "../../types/types";
@@ -38,32 +39,32 @@ export const toTwClass = (label?: string, prefix?: string): string => {
   return "";
 };
 
-export const filterTransactions = (
-  transactions: CategorisedTransaction[],
-  filters: Filters,
-  // fuse: Fuse<CategorisedTransaction>,
-) => {
-  let filtered: CategorisedTransaction[] = [...transactions];
-  const {
-    month: monthFilter,
-    // query,
-    amount: amountFilter,
-    categories: categoryFilters,
-  } = filters;
+export const filterAndSearchTransactions = ({
+  allTransactions,
+  query,
+  filters,
+  fuse,
+}: {
+  allTransactions: CategorisedTransaction[];
+  query: string;
+  filters: Filters;
+  fuse: Fuse<CategorisedTransaction>;
+}) => {
+  let filtered: CategorisedTransaction[] = [...allTransactions];
 
-  // if (query && fuse !== null) {
-  //   filtered = fuse.search(query).map((result) => result.item);
-  // }
+  if (query && fuse !== null) {
+    filtered = fuse.search(query).map((result) => result.item);
+  }
 
-  if (monthFilter) {
+  if (filters.month.value) {
     filtered = filtered.filter((transaction) => {
       const [, month] = transaction.date.split("/");
-      return month === monthFilter;
+      return month === filters.month.value;
     });
   }
 
-  if (amountFilter) {
-    const [lower, upper] = amountFilter.split(",");
+  if (filters.amount.value) {
+    const [lower, upper] = filters.amount.value.split(",");
     filtered = filtered.filter((transaction) => {
       const amount = Math.abs(transaction.amount);
       if (lower && upper) {
@@ -79,12 +80,15 @@ export const filterTransactions = (
     });
   }
 
-  if (categoryFilters.length > 0) {
+  // Handle categories filter
+  if (filters.categories.length > 0) {
+    const categoryValues = filters.categories.map((option) => option.value);
     filtered = filtered.filter(
       (transaction) =>
-        transaction.category && categoryFilters.includes(transaction.category),
+        transaction.category && categoryValues.includes(transaction.category),
     );
   }
+
   return filtered;
 };
 

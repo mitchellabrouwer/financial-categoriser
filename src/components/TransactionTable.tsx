@@ -2,21 +2,20 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import useScrollbarSize from "react-scrollbar-size";
-import Select, { MultiValue, SingleValue } from "react-select";
+import Select, { SingleValue } from "react-select";
 import { toast } from "react-toastify";
 import { AutoSizer, List } from "react-virtualized";
 import { colours } from "../../styles/colours";
 import { categoryList } from "../data/categoryList";
 import useModal from "../hooks/useModal";
-import useTransactionFilter from "../hooks/useTransactionFilter";
-import useTransactionSearch from "../hooks/useTransactionSearch";
+import useTransactionFilterAndSearch from "../hooks/useTransactionFilterAndSearch";
 import {
   categoryOptions,
   countUnknown,
   toTwClass,
 } from "../lib/utilities/general";
 import loadFuse from "../lib/utilities/loadFuse";
-import { CategorisedTransaction, Option } from "../types/types";
+import { CategorisedTransaction, Filters, Option } from "../types/types";
 import CategoryListModal from "./CategoryListModal";
 import MultiSelect, { ColourOption } from "./MultiSelect";
 import Search from "./Search";
@@ -59,6 +58,12 @@ const amountOptions = [
   { value: "50001,", label: "Above $50,001" },
 ];
 
+const initialFilters: Filters = {
+  amount: { value: "", label: "" },
+  month: { value: "", label: "" },
+  categories: [],
+};
+
 export default function TransactionTable({
   transactions,
   allTransactions,
@@ -74,27 +79,28 @@ export default function TransactionTable({
   const searchRef = useRef<HTMLInputElement>(null);
 
   const fuse = useMemo(() => loadFuse(allTransactions), [allTransactions]);
+
   const sortedTransactions = useMemo(() => {
     return [...transactions].sort((a, b) => a.amount - b.amount);
   }, [transactions]);
 
   const { isShowing, toggle } = useModal();
   const { width: widthScrollBar } = useScrollbarSize();
-  const { setQuery } = useTransactionSearch({
-    allTransactions,
-    setTransactions,
-    fuse,
-  });
 
   const onNoResultsFound = useCallback(() => {
     toast.error("No transactions found", { position: "bottom-center" });
   }, []);
 
-  const { setFilters } = useTransactionFilter({
-    initialFilters: { amount: "", month: "", categories: [] },
+  const {
+    filters: currentFilters,
+    setFilters,
+    setQuery,
+  } = useTransactionFilterAndSearch({
+    initialFilters,
     allTransactions,
     setTransactions,
     onNoResultsFound,
+    fuse,
   });
 
   useEffect(() => {
@@ -130,48 +136,6 @@ export default function TransactionTable({
     },
     [fuse, setTransactions, transactions],
   );
-
-  const handleMonthFilter = (selection: SingleValue<Option>) => {
-    setFilters((filters) => ({
-      ...filters,
-      month: selection ? selection.value : "",
-    }));
-  };
-
-  const handleAmountFilter = (selection: SingleValue<Option>) => {
-    setFilters((filters) => ({
-      ...filters,
-      amount: selection ? selection.value : "",
-    }));
-  };
-
-  const handleCategoryFilters = (
-    selectedCategoryOptions: MultiValue<ColourOption>,
-  ) => {
-    setFilters((filters) => ({
-      ...filters,
-      categories: selectedCategoryOptions
-        ? selectedCategoryOptions.map((option) => option.value)
-        : [],
-    }));
-  };
-
-  // const rowRenderer = useCallback(
-  // ({ index, key, style }: ListRowProps) => {
-  //   const transaction = sortedTransactions[index];
-  //   return (
-  //     <TransactionRow
-  //       key={key}
-  //       index={index}
-  //       style={style}
-  //       transaction={transaction}
-  //       categoryOptions={categoryOptions}
-  //       handleChangeCategory={handleChangeCategory}
-  //     />
-  //   );
-  // },
-  //   [sortedTransactions, handleChangeCategory],
-  // );
 
   return (
     <div className="relative mx-2 my-2 flex h-full flex-col shadow-md sm:rounded-lg">
@@ -212,8 +176,18 @@ export default function TransactionTable({
         <div className="hidden w-[150px] flex-shrink-0 sm:block">
           <Select
             menuPosition="fixed"
+            value={
+              currentFilters.month.label
+                ? currentFilters.month
+                : monthOptions[0]
+            }
             options={monthOptions}
-            onChange={handleMonthFilter}
+            onChange={(selectedOption) => {
+              setFilters({
+                ...currentFilters,
+                month: selectedOption || initialFilters.month,
+              });
+            }}
           />
         </div>
         <div className="flex-grow">
@@ -222,8 +196,18 @@ export default function TransactionTable({
         <div className="w-[100px] flex-shrink-0 md:w-[150px]">
           <Select
             menuPosition="fixed"
+            value={
+              currentFilters.amount.label
+                ? currentFilters.amount
+                : amountOptions[0]
+            }
             options={amountOptions}
-            onChange={handleAmountFilter}
+            onChange={(selectedOption) => {
+              setFilters({
+                ...currentFilters,
+                amount: selectedOption || initialFilters.amount,
+              });
+            }}
           />
         </div>
         <div
@@ -232,7 +216,13 @@ export default function TransactionTable({
         >
           <MultiSelect
             options={colourOptions}
-            onChangeHandler={handleCategoryFilters}
+            values={currentFilters.categories}
+            onChangeHandler={(selectedCategoryOptions) => {
+              setFilters((filters) => ({
+                ...filters,
+                categories: selectedCategoryOptions || [],
+              }));
+            }}
           />
         </div>
       </div>

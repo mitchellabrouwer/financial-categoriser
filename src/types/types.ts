@@ -1,3 +1,6 @@
+import { MultiValue } from "react-select";
+import { ColourOption } from "../components/MultiSelect";
+
 export type Transaction = {
   date: string;
   description: string;
@@ -43,10 +46,9 @@ export interface CategoryCounts {
 }
 
 export interface Filters {
-  // query: string;
-  month: string;
-  amount: string;
-  categories: string[];
+  month: Option;
+  amount: Option;
+  categories: MultiValue<ColourOption>;
 }
 
 export type ActiveView = "import" | "charts";
