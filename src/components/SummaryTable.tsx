@@ -61,7 +61,7 @@ export default function SummaryTable({
             </th>
             <th
               scope="col"
-              className="sticky top-0 bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="sticky top-0 bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-300"
             >
               %
             </th>
