@@ -141,7 +141,7 @@ export default function TransactionTable({
     <div className="relative mx-2 my-2 flex h-full flex-col shadow-md sm:rounded-lg">
       {/* Flexbox used over <table> due to responsivity issues when using react-virtualized */}
 
-      <div className="flex rounded-tl-lg rounded-tr-lg bg-gray-50 bg-gray-700 p-1 text-sm uppercase">
+      <div className="flex rounded-tl-lg rounded-tr-lg bg-gray-700 p-1 text-sm uppercase text-gray-300">
         <div className="hidden w-[150px] flex-shrink-0 text-center sm:block">
           Date
         </div>

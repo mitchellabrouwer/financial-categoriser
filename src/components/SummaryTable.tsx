@@ -31,31 +31,31 @@ export default function SummaryTable({
           <tr>
             <th
               scope="col"
-              className="sticky top-0 rounded-tl-lg bg-gray-700 px-3 py-1 text-left text-xs font-medium uppercase tracking-wider text-gray-500 md:px-3 md:py-1"
+              className="sticky top-0 rounded-tl-lg bg-gray-700 px-3 py-1 text-left text-xs font-medium uppercase tracking-wider text-gray-300 md:px-3 md:py-1"
             >
               Category
             </th>
             <th
               scope="col"
-              className="sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell"
+              className="sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-300 lg:table-cell"
             >
               Count
             </th>
             <th
               scope="col"
-              className="sticky top-0 bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="sticky top-0 bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-300"
             >
               Avg/Week
             </th>
             <th
               scope="col"
-              className="xs:table-cell sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500"
+              className="xs:table-cell sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-300"
             >
               Avg/Mth
             </th>
             <th
               scope="col"
-              className="sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-500 lg:table-cell"
+              className="sticky top-0 hidden bg-gray-700 px-3 py-1 text-center text-xs font-medium uppercase tracking-wider text-gray-300 lg:table-cell"
             >
               Total
             </th>
