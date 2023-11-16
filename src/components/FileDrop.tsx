@@ -43,17 +43,21 @@ function FileDrop({ handleFileChange }: FileDropProps) {
               </div>
             ))}
 
-            <div className="bg-slate-600 p-1">01/01/2023</div>
-            <div className="bg-slate-600 p-1">Sample Description</div>
-            <div className="bg-slate-600 p-1">0.00</div>
-            <div className="bg-slate-600 p-1">100.00</div>
-            <div className="bg-slate-600 p-1">50.00</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">01/01/2023</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">
+              Sample Description
+            </div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">0.00</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">100.00</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">50.00</div>
 
-            <div className="bg-slate-600 p-1">02/01/2023</div>
-            <div className="bg-slate-600 p-1">Another Description</div>
-            <div className="bg-slate-600 p-1">150.00</div>
-            <div className="bg-slate-600 p-1">0.00</div>
-            <div className="bg-slate-600 p-1">200.00</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">02/01/2023</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">
+              Another Description
+            </div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">150.00</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">0.00</div>
+            <div className="bg-slate-100 p-1 dark:bg-slate-600">200.00</div>
           </div>
         </div>
         <input
