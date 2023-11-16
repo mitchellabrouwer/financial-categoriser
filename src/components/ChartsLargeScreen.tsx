@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   CategorisedTransaction,
   CategoryCounts,
@@ -45,7 +43,7 @@ function ChartsLargeScreen({
           />
         </div>
       </div>
-      <div className="mt-5 h-[35vh]">
+      <div className="mt-5 h-[30vh]">
         <TransactionTable
           transactions={transactions}
           allTransactions={allTransactions || []}
