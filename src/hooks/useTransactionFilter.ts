@@ -16,13 +16,12 @@ function useTransactionFilter({
   onNoResultsFound,
 }: UseTransactionFilterProps) {
   const [filters, setFilters] = useState(initialFilters);
-  console.log(filters);
 
   useEffect(() => {
     const filtered = filterTransactions(allTransactions, filters);
     if (filtered.length > 0) {
       setTransactions(filtered);
-    } else if (onNoResultsFound) {
+    } else {
       onNoResultsFound();
     }
   }, [filters, allTransactions, setTransactions, onNoResultsFound]);

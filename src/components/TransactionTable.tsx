@@ -85,13 +85,16 @@ export default function TransactionTable({
     setTransactions,
     fuse,
   });
+
+  const onNoResultsFound = useCallback(() => {
+    toast.error("No transactions found", { position: "bottom-center" });
+  }, []);
+
   const { setFilters } = useTransactionFilter({
     initialFilters: { amount: "", month: "", categories: [] },
     allTransactions,
     setTransactions,
-    onNoResultsFound: () => {
-      toast.error("No transactions found", { position: "bottom-center" });
-    },
+    onNoResultsFound,
   });
 
   useEffect(() => {
