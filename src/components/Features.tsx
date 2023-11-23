@@ -15,7 +15,7 @@ function Features() {
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-50 sm:text-4xl">
             Financial categorising
           </p>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
+          <p className="mt-2 text-lg leading-8 text-gray-400">
             Working to make it easy to categorise where your money is going
           </p>
         </div>
@@ -29,7 +29,7 @@ function Features() {
                 </div>
                 Your device only.
               </dt>
-              <dd className="text-base leading-7 text-gray-600">
+              <dd className="text-base leading-7 text-gray-400">
                 No uploads, no sharing, no cookies, no local storage.
               </dd>
             </div>
@@ -42,7 +42,7 @@ function Features() {
                 </div>
                 Smart autocategorizing.
               </dt>
-              <dd className="text-base leading-7 text-gray-600">
+              <dd className="text-base leading-7 text-gray-400">
                 Import a csv file from your bank, let autocategorizing work its
                 wonders then save through export for your records.
               </dd>
@@ -56,7 +56,7 @@ function Features() {
                 </div>
                 Committed to help.
               </dt>
-              <dd className="text-base leading-7 text-gray-600">
+              <dd className="text-base leading-7 text-gray-400">
                 Providing this service for free so you can take control of your
                 dineros.
               </dd>
