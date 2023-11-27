@@ -2,7 +2,7 @@ import Fuse from "fuse.js";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { filterAndSearchTransactions } from "../lib/utilities/general";
 import { CategorisedTransaction, Filters } from "../types/types";
-import useDebounce from "./useDebounceHook";
+import useDebounce from "./useDebounce";
 
 interface UseTransactionFilterProps {
   initialFilters: Filters;
