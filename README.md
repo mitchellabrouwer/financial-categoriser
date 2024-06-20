@@ -4,8 +4,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/github_username/centsiblility">
-    <img src="public/screenshots/Screenshot1.png" alt="Logo" width="100" height="100">
-    <img src="public/screenshots/Screenshot2.png" alt="Logo" width="100" height="100">
+    <div align="center" style="width: 100%; text-align: center;">
+      <img src="public/screenshots/Screenshot1.png" alt="Logo" style="max-width: 100%; height: auto;">
+      <img src="public/screenshots/Screenshot2.png" alt="Logo" style="max-width: 100%; height: auto;">
+    </div>
   </a>
 
 <h3 align="center">Centsiblility</h3>
