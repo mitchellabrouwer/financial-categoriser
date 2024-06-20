@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/centsiblility">
+  <a href="https://github.com/mitchellabrouwer/centsiblility">
     <div align="center" style="width: 100%; text-align: center;">
       <img src="public/screenshots/Screenshot1.png" alt="Logo" style="max-width: 100%; height: auto;">
       <img src="public/screenshots/Screenshot2.png" alt="Logo" style="max-width: 100%; height: auto;">
@@ -17,9 +17,9 @@
     <br />
     <a href="https://financial-categoriser.vercel.app/">Visit Site</a>
     ·
-    <a href="https://github.com/github_username/centsiblility/issues">Report Bug</a>
+    <a href="https://github.com/mitchellabrouwer/centsiblility/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/centsiblility/issues">Request Feature</a>
+    <a href="https://github.com/mitchellabrouwer/centsiblility/issues">Request Feature</a>
   </p>
 </div>
 
