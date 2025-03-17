@@ -10,7 +10,7 @@ function Footer() {
 
   return (
     <footer className="fixed bottom-0 left-0 mt-10 w-full bg-black p-1 text-center text-xs text-white md:p-4">
-      <p>&copy; 2023 Centsible Online. All rights reserved.</p>
+      <p>&copy; 2025 Centsible Online. All rights reserved.</p>
 
       <div className="flex items-center justify-center space-x-2 text-gray-500">
         <button

@@ -53,3 +53,10 @@ To get a local copy up and running, follow these simple steps.
 This project requires Node.js and npm installed on your machine.
 ```sh
 npm install npm@latest -g
+```
+
+## License & Copyright
+
+© 2024 Mitchell Brouwer. All rights reserved.
+
+This project is licensed under the MIT License.
