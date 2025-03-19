@@ -1,7 +1,7 @@
-import Fuse from "fuse.js";
+import Fuse, { IFuseOptions } from "fuse.js";
 import { CategorisedTransaction } from "../../types/types";
 
-const options: Fuse.IFuseOptions<CategorisedTransaction> = {
+const options: IFuseOptions<CategorisedTransaction> = {
   includeScore: true,
   keys: ["description"],
   threshold: 0.05,
